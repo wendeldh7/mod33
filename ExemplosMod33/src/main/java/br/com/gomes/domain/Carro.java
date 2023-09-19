@@ -24,12 +24,12 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "TB_ALUNO")
-public class Aluno {
+@Table(name = "TB_CARRO")
+public class Carro {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="aluno_seq")
-	@SequenceGenerator(name="aluno_seq", sequenceName="sq_aluno", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="carro_seq")
+	@SequenceGenerator(name="carro_seq", sequenceName="sq_carro", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
 	@Column(name = "CODIGO", length = 10, nullable = false, unique = true)
@@ -38,19 +38,19 @@ public class Aluno {
 	@Column(name = "NOME", length = 10, nullable = false)
 	private String nome;
 	
-	@OneToOne(mappedBy = "aluno")
+	@OneToOne(mappedBy = "carro")
 	private Matricula matricula;
 	
 	@ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-        name = "TB_ALUNO_COMPUTADOR", 
-        joinColumns = { @JoinColumn(name = "id_aluno_fk") }, 
-        inverseJoinColumns = { @JoinColumn(name = "id_computador_fk") }
+        name = "TB_CARRO_MARCA", 
+        joinColumns = { @JoinColumn(name = "id_carro_fk") }, 
+        inverseJoinColumns = { @JoinColumn(name = "id_marca_fk") }
     )
-	private List<Computador> computadores;
+	private List<marca> marcas;
 	
-	public Aluno() {
-		this.computadores = new ArrayList<Computador>();
+	public Carro() {
+		this.marcas = new ArrayList<marca>();
 	}
 
 	public Long getId() {
@@ -78,23 +78,23 @@ public class Aluno {
 	}
 
 	public Matricula getMatricula() {
-		return matricula;
+		return acessorio;
 	}
 
-	public void setMatricula(Matricula matricula) {
-		this.matricula = matricula;
+	public void setMatricula(Acessorio acessorio) {
+		this.acessorio = acessorio;
 	}
 
-	public List<Computador> getComputadores() {
+	public List<marca> getMarcas() {
 		return computadores;
 	}
 
-	public void setComputadores(List<Computador> computadores) {
-		this.computadores = computadores;
+	public void setMarcas(List<marca> marcas) {
+		this.marcas = marcas;
 	}
 	
-	public void add(Computador comp) {
-		this.computadores.add(comp);
+	public void add(marca marcas) {
+		this.computadores.add(marcas);
 	}
 	
 }

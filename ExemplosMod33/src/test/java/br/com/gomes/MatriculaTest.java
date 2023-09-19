@@ -10,94 +10,94 @@ import java.time.Instant;
 
 import org.junit.Test;
 
-import br.com.gomes.dao.AlunoDao;
-import br.com.gomes.dao.ComputadorDao;
-import br.com.gomes.dao.CursoDao;
-import br.com.gomes.dao.IAlunoDao;
-import br.com.gomes.dao.IComputadorDao;
-import br.com.gomes.dao.ICursoDao;
-import br.com.gomes.dao.IMatriculaDao;
-import br.com.gomes.dao.MatriculaDao;
-import br.com.gomes.domain.Aluno;
-import br.com.gomes.domain.Computador;
-import br.com.gomes.domain.Curso;
-import br.com.gomes.domain.Matricula;
+import br.com.gomes.dao.CarroDao;
+import br.com.gomes.dao.MarcaDao;
+import br.com.gomes.dao.CarroDao;
+import br.com.gomes.dao.ICarroDao;
+import br.com.gomes.dao.IMarcaDao;
+import br.com.gomes.dao.ICarroDao;
+import br.com.gomes.dao.IAcessorioDao;
+import br.com.gomes.dao.AcessorioDao;
+import br.com.gomes.domain.Carro;
+import br.com.gomes.domain.Marca;
+import br.com.gomes.domain.Carro;
+import br.com.gomes.domain.Acessorio;
 
 /**
  * @author wendel.gomes
  *
  */
-public class MatriculaTest {
+public class AcessorioTest {
 	
-	private IMatriculaDao matriculaDao;
+	private IAcessorioDao acessorioDao;
 	
-	private ICursoDao cursoDao;
+	private ICarroDao carroDao;
 	
-	private IAlunoDao alunoDao;
+	private ICarroDao carroDao;
 	
-	private IComputadorDao computadorDao;
+	private IMarcaDao marcaDao;
 	
 	public MatriculaTest() {
-		matriculaDao = new MatriculaDao();
-		cursoDao = new CursoDao();
-		alunoDao = new AlunoDao();
-		computadorDao = new ComputadorDao();
+		acessorioDao = new AcessorioDao();
+		carroDao = new CarroDao();
+		carroDao = new CarroDao();
+		marcaDao = new MarcaDao();
 	}
 
 	@Test
 	public void cadastrar() {
-		Curso curso = criarCurso("A1");
-		Aluno aluno = criarAluno("A1");
+		Carro carro = criarCarro("A1");
+		Carro carro = criarCarro("A1");
 		
-		Matricula mat = new Matricula();
-		mat.setCodigo("A1");
-		mat.setDataMatricula(Instant.now());
-		mat.setStatus("ATIVA");
-		mat.setValor(2000d);
-		mat.setCurso(curso);
-		mat.setAluno(aluno);
+		Acessorio acessorio = new Acessorio();
+		acessorio.setCodigo("A1");
+		acessorio.setDataAcessorio(Instant.now());
+		acessorio.setStatus("ATIVA");
+		acessorio.setValor(2000d);
+		acessorio.setCarro(carro);
+		acessorio.setCarro(carro);
 		
-		aluno.setMatricula(mat);
-		mat = matriculaDao.cadastrar(mat);
+		carro.setAcessorio(acessorio);
+		acessorio = acessorioDao.cadastrar(acessorio);
 		
-		assertNotNull(mat);
-		assertNotNull(mat.getId());
+		assertNotNull(acessorio);
+		assertNotNull(acessorio.getId());
 		
-		Matricula matBD = matriculaDao.buscarPorCodigoCurso(mat.getCodigo());
-		assertNotNull(matBD);
-		assertEquals(mat.getId(), matBD.getId());
+		Acessorio acessorioBD = acessorioDao.buscarPorCodigoCarro(acessorio.getCodigo());
+		assertNotNull(acessorioBD);
+		assertEquals(acessorio.getId(), acessorioBD.getId());
 		
-		Matricula matBDObj = matriculaDao.buscarPorCurso(curso);
-		assertNotNull(matBDObj);
-		assertEquals(mat.getId(), matBDObj.getId());
+		Acessorio acessorioBDObj = matriculaDao.buscarPorCurso(curso);
+		assertNotNull(acessorioBDObj);
+		assertEquals(acessorio.getId(), acessorioBDObj.getId());
 	}
 	
-	private Computador criarComputador(String codigo) {
-		Computador comp = new Computador();
-		comp.setCodigo(codigo);
-		comp.setDescricao("Comp 1");
-		return comp;
-		//return computadorDao.cadastrar(comp);
+	private Marca criarComputador(String codigo) {
+		Marca marca = new Marca();
+		marca.setCodigo(codigo);
+		marca.setDescricao("Marca 1");
+		return marca;
+		//return computadorDao.cadastrar(marca);
 	}
 
 	private Aluno criarAluno(String codigo) {
-		Computador comp = criarComputador("A1");
-		Computador comp2 = criarComputador("A2");
-		Aluno aluno = new Aluno();
-		aluno.setCodigo(codigo);
-		aluno.setNome("Wendel");
-		aluno.add(comp);
-		aluno.add(comp2);
-		//comp.add(aluno);
-		//comp2.add(aluno);
-		return alunoDao.cadastrar(aluno);
+		Marca marca = criarMarca("A1");
+		Marca marca2 = criarMarca("A2");
+		Carro carro = new Carro();
+		carro.setCodigo(codigo);
+		carro.setNome("Wendel");
+		carro.add(marca);
+		carro.add(marca2);
+		//comp.add(carro);
+		//comp2.add(carro);
+		return carroDao.cadastrar(carro);
 	}
 
-	private Curso criarCurso(String codigo) {
-		Curso curso = new Curso();
-		curso.setCodigo(codigo);
-		curso.setDescricao("CURSO TESTE");
-		curso.setNome("Curso de Java Backend");
-		return cursoDao.cadastrar(curso);
+	private Carro criarCurso(String codigo) {
+		Carro carro = new Carro();
+		carro.setCodigo(codigo);
+		carro.setDescricao("CARRO TESTE");
+		carro.setNome("Carro");
+		return carroDao.cadastrar(carro);
 	}
 }

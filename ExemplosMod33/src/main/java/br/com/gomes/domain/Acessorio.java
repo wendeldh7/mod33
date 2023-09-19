@@ -19,18 +19,18 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "TB_MATRICULA")
+@Table(name = "TB_ACESSORIO")
 public class Matricula {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="matri_seq")
-	@SequenceGenerator(name="matri_seq", sequenceName="sq_matricula", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="acessorio_seq")
+	@SequenceGenerator(name="acessorio_seq", sequenceName="sq_acessorio", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
 	@Column(name = "CODIGO", length = 10, nullable = false, unique = true)
 	private String codigo;
 	
-	@Column(name = "DATA_MATRICULA", nullable = false)
+	@Column(name = "DATA_ACESSORIO", nullable = false)
 	private Instant dataMatricula;
 	
 	@Column(name = "valor", nullable = false)
@@ -40,18 +40,18 @@ public class Matricula {
 	private String status;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_curso_fk", 
-		foreignKey = @ForeignKey(name = "fk_curso_matricula"), 
+	@JoinColumn(name = "id_carro_fk", 
+		foreignKey = @ForeignKey(name = "fk_carro_acessorio"), 
 		referencedColumnName = "id", nullable = false
 	)
-	private Curso curso;
+	private Carro curso;
 	
 	@OneToOne
-	@JoinColumn(name = "id_aluno_fk", 
-		foreignKey = @ForeignKey(name = "fk_aluno_matricula"), 
+	@JoinColumn(name = "id_carro_fk", 
+		foreignKey = @ForeignKey(name = "fk_carro_acessorio"), 
 		referencedColumnName = "id", nullable = false
 	)	
-	private Aluno aluno;
+	private Carro carro;
 	
 	public Long getId() {
 		return id;
@@ -69,12 +69,12 @@ public class Matricula {
 		this.codigo = codigo;
 	}
 
-	public Instant getDataMatricula() {
-		return dataMatricula;
+	public Instant getDataAcessorio() {
+		return dataAcessorio;
 	}
 
-	public void setDataMatricula(Instant dataMatricula) {
-		this.dataMatricula = dataMatricula;
+	public void setDataAcessorio(Instant dataAcessorio) {
+		this.dataAcessorio = dataAcessorio;
 	}
 
 	public Double getValor() {
@@ -93,20 +93,20 @@ public class Matricula {
 		this.status = status;
 	}
 
-	public Curso getCurso() {
-		return curso;
+	public Curso getCarro() {
+		return carro;
 	}
 
-	public void setCurso(Curso curso) {
-		this.curso = curso;
+	public void setCurso(Carro carro) {
+		this.carro = carro;
 	}
 
-	public Aluno getAluno() {
+	public Carro getAluno() {
 		return aluno;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setAluno(Carro carro) {
+		this.carro = carro;
 	}
 	
 

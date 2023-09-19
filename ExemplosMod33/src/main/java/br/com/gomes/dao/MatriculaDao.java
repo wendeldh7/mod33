@@ -14,50 +14,50 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import br.com.gomes.domain.Curso;
-import br.com.gomes.domain.Matricula;
+import br.com.gomes.domain.Acessorio;
 
 /**
  * @author wendel.gomes
  *
  */
-public class MatriculaDao implements IMatriculaDao {
+public class AcessorioDao implements IAcessorioDao {
 
 	@Override
-	public Matricula cadastrar(Matricula mat) {
+	public Acessorio cadastrar(Acessorio acessorio) {
 		EntityManagerFactory entityManagerFactory = 
 				Persistence.createEntityManagerFactory("ExemploJPA");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		entityManager.getTransaction().begin();
-		entityManager.persist(mat);
+		entityManager.persist(acessorio);
 		entityManager.getTransaction().commit();
 		 
 		entityManager.close();
 		entityManagerFactory.close();
-		return mat;
+		return acessorio;
 	}
 
 	@Override
-	public Matricula buscarPorCodigoCurso(String codigoCurso) {
+	public Acessorio buscarPorCodigoCurso(String codigoCurso) {
 		EntityManagerFactory entityManagerFactory = 
 				Persistence.createEntityManagerFactory("ExemploJPA");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT m FROM Matricula m ");
-		sb.append("INNER JOIN Curso c on c = m.curso ");
-		sb.append("WHERE c.codigo = :codigoCurso");
+		sb.append("SELECT m FROM Acessorio m ");
+		sb.append("INNER JOIN Curso c on c = m.carro ");
+		sb.append("WHERE c.codigo = :codigoCarro");
 		
 		entityManager.getTransaction().begin();
 		TypedQuery<Matricula> query = 
-				entityManager.createQuery(sb.toString(), Matricula.class);
-		query.setParameter("codigoCurso", codigoCurso);
-		Matricula matricula = query.getSingleResult();    
+				entityManager.createQuery(sb.toString(), Acessorio.class);
+		query.setParameter("codigoCarro", codigoCarro);
+		Matricula acessorio = query.getSingleResult();    
 		
 		entityManager.close();
 		entityManagerFactory.close();
 		
-		return matricula;
+		return acessorio;
 	}
 
 	@Override
@@ -67,20 +67,20 @@ public class MatriculaDao implements IMatriculaDao {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT m FROM Matricula m ");
-		sb.append("INNER JOIN Curso c on c = m.curso ");
-		sb.append("WHERE c = :curso");
+		sb.append("SELECT m FROM Acessorio m ");
+		sb.append("INNER JOIN Carro c on c = m.carro ");
+		sb.append("WHERE c = :carro");
 		
 		entityManager.getTransaction().begin();
-		TypedQuery<Matricula> query = 
-				entityManager.createQuery(sb.toString(), Matricula.class);
-		query.setParameter("curso", curso);
-		Matricula matricula = query.getSingleResult();    
+		TypedQuery<Acessorio> query = 
+				entityManager.createQuery(sb.toString(), Acessorio.class);
+		query.setParameter("carro", carro);
+		Acessorio acessorio = query.getSingleResult();    
 		
 		entityManager.close();
 		entityManagerFactory.close();
 		
-		return matricula;
+		return acessorio;
 	}
 	
 	@Override
@@ -91,42 +91,42 @@ public class MatriculaDao implements IMatriculaDao {
 		
 		
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Matricula> query = builder.createQuery(Matricula.class);
-		Root<Matricula> root = query.from(Matricula.class);
-		Join<Object, Object> join = root.join("curso", JoinType.INNER);
+		CriteriaQuery<Acessorio> query = builder.createQuery(Acessorio.class);
+		Root<Acessorio> root = query.from(Acessorio.class);
+		Join<Object, Object> join = root.join("carro", JoinType.INNER);
 		query.select(root).where(builder.equal(join.get("codigo"), codigoCurso));
 		
-		TypedQuery<Matricula> tpQuery = 
+		TypedQuery<Acessorio> tpQuery = 
 				entityManager.createQuery(query);
-		Matricula matricula = tpQuery.getSingleResult();    
+		Acessorio acessorio = tpQuery.getSingleResult();    
 		
 		entityManager.close();
 		entityManagerFactory.close();
 		
-		return matricula;
+		return acessorio;
 	}
 
 	@Override
-	public Matricula buscarPorCursoCriteria(Curso curso) {
+	public Acessorio buscarPorCursoCriteria(Carro carro) {
 		EntityManagerFactory entityManagerFactory = 
 				Persistence.createEntityManagerFactory("ExemploJPA");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Matricula> query = builder.createQuery(Matricula.class);
-		Root<Matricula> root = query.from(Matricula.class);
-		Join<Object, Object> join = root.join("curso", JoinType.INNER);
-		query.select(root).where(builder.equal(join, curso));
+		CriteriaQuery<Acessorio> query = builder.createQuery(Acessorio.class);
+		Root<Acessorio> root = query.from(Acessorio.class);
+		Join<Object, Object> join = root.join("carro", JoinType.INNER);
+		query.select(root).where(builder.equal(join, carro));
 		
-		TypedQuery<Matricula> tpQuery = 
+		TypedQuery<Acessorio> tpQuery = 
 				entityManager.createQuery(query);
-		Matricula matricula = tpQuery.getSingleResult();    
+		Acessorio acessorio = tpQuery.getSingleResult();    
 		
 		entityManager.close();
 		entityManagerFactory.close();
 		
-		return matricula;
+		return acessorio;
 	}
 
 }

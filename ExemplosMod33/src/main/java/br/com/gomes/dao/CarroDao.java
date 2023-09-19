@@ -7,29 +7,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import br.com.gomes.domain.Computador;
+import br.com.gomes.domain.Carro;
 
 /**
  * @author wendel.gomes
  *
  */
-public class ComputadorDao implements IComputadorDao {
+public class CarroDao implements ICarroDao{
 
 	@Override
-	public Computador cadastrar(Computador computador) {
+	public Carro cadastrar(Carro carro) {
 		EntityManagerFactory entityManagerFactory = 
 				Persistence.createEntityManagerFactory("ExemploJPA");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		entityManager.getTransaction().begin();
-		entityManager.persist(computador);
+		entityManager.persist(carro);
 		entityManager.getTransaction().commit();
 		 
 		entityManager.close();
 		entityManagerFactory.close();
 		
 		
-		return computador;
+		return aluno;
 	}
 
 }

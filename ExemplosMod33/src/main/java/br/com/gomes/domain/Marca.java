@@ -20,12 +20,12 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "TB_COMPUTADOR")
+@Table(name = "TB_Marca")
 public class Computador {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="comp_seq")
-	@SequenceGenerator(name="comp_seq", sequenceName="sq_computador", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="marca_seq")
+	@SequenceGenerator(name="marca_seq", sequenceName="sq_marca", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
 	@Column(name = "CODIGO", length = 10, nullable = false, unique = true)
@@ -34,11 +34,11 @@ public class Computador {
 	@Column(name = "DESCRICAO", length = 50, nullable = false)
 	private String descricao;
 	
-	@ManyToMany(mappedBy = "computadores")
-	private List<Aluno> alunos;
+	@ManyToMany(mappedBy = "marcas")
+	private List<Carro> carros;
 	
 	public Computador() {
-		this.alunos = new ArrayList<>();
+		this.carros = new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -65,16 +65,16 @@ public class Computador {
 		this.descricao = descricao;
 	}
 
-	public List<Aluno> getAlunos() {
-		return alunos;
+	public List<Carro> getCarros() {
+		return carros;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+	public void setCarros(List<Carro> carros) {
+		this.carros = carros;
 	}
 	
-	public void add(Aluno aluno) {
-		this.alunos.add(aluno);
+	public void add(Carro carro) {
+		this.carros.add(carro);
 	}
 	
 }

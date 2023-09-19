@@ -20,12 +20,12 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "TB_CURSO")
-public class Curso {
+@Table(name = "TB_CARRO")
+public class Carro {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="curso_seq")
-	@SequenceGenerator(name="curso_seq", sequenceName="sq_curso", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="carro_seq")
+	@SequenceGenerator(name="carro_seq", sequenceName="sq_carro", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
 	@Column(name = "CODIGO", length = 10, nullable = false, unique = true)
@@ -37,8 +37,8 @@ public class Curso {
 	@Column(name = "DESCRICAO", length = 100, nullable = false)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "curso")
-	private List<Matricula> matriculas;
+	@OneToMany(mappedBy = "carro")
+	private List<Acessorio> acessorios;
 	
 	public Long getId() {
 		return id;
@@ -72,12 +72,12 @@ public class Curso {
 		this.descricao = descricao;
 	}
 
-	public List<Matricula> getMatriculas() {
-		return matriculas;
+	public List<Acessorio> getAcessorios() {
+		return acessorios;
 	}
 
-	public void setMatriculas(List<Matricula> matriculas) {
-		this.matriculas = matriculas;
+	public void setMatriculas(List<Acessorio> acessorios) {
+		this.acessorios = acessorios;
 	}
 
 	
